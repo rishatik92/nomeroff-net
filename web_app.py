@@ -39,7 +39,7 @@ from werkzeug.utils import secure_filename
 optionsDetector = OptionsDetector()
 optionsDetector.load("latest")
 
-textDetector = TextDetector.get_static_module("ru")()
+textDetector = TextDetector.get_static_module("ru")
 textDetector.load("latest")
 
 app = Flask(__name__)
