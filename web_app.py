@@ -69,7 +69,11 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             # Detect numberplate
-            img = cv2.imdecode(file.read())
+            # use numpy to construct an array from the bytes
+            x = np.fromstring(file.read(), dtype='uint8')
+
+            # decode the array into an image
+            img = cv2.imdecode(x, cv2.IMREAD_UNCHANGED)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             targetBoxes = detector.detect_bbox(img)
