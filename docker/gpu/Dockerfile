@@ -35,5 +35,6 @@ RUN pip3 install pycocotools
 RUN pip3 install tqdm
 RUN pip3 install -U "git+git://github.com/lilohuang/PyTurboJPEG.git"
 RUN pip3 install flask
+RUN pip3 install git+https://github.com/ria-com/modelhub-client.git
 
 WORKDIR /var/www/nomeroff-net
