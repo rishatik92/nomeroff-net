@@ -68,12 +68,9 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            # Detect numberplate
-            # use numpy to construct an array from the bytes
-            x = np.fromstring(file.read(), dtype='uint8')
 
             # decode the array into an image
-            img = cv2.imdecode(x, cv2.IMREAD_UNCHANGED)
+            img = cv2.imdecode(np.fromstring(file.read(), dtype='uint8'), cv2.IMREAD_UNCHANGED)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             targetBoxes = detector.detect_bbox(img)
@@ -89,8 +86,7 @@ def upload_file():
             # find text with postprocessing by standart
             textArr = textDetector.predict(zones)
             textArr = textPostprocessing(textArr, regionNames)
-            print(textArr)
-            return redirect(url_for('download_file', name=filename))
+            return f'''nums in photo: {textArr}'''
     return '''
     <!doctype html>
     <title>test app rishat</title>
